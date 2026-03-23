@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus // Portfolio Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bone: #F5F5F0;
+            --ink: #0A0A0A;
+            --charcoal: #1A1A1A;
+            --magenta-glow: rgba(255, 0, 128, 0.4);
+            --magenta-hot: #FF0080;
+        }
+
+        body {
+            background-color: var(--bone);
+            color: var(--ink);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .space-grotesk { font-family: 'Space Grotesk', sans-serif; }
+
+        /* Custom Grain Overlay */
+        .grain {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 999;
+            opacity: 0.04;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3BaseFilter id='filter'%3BfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23filter)'/%3E%3C/svg%3E");
+        }
+
+        /* Profile Nexus */
+        .nexus-core {
+            position: relative;
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            border: 1px solid var(--ink);
+            padding: 4px;
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .nexus-core:hover {
+            border-color: var(--magenta-hot);
+            box-shadow: 0 0 30px var(--magenta-glow);
+            transform: scale(1.05);
+        }
+
+        .nexus-image {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: var(--charcoal);
+            object-fit: cover;
+            border: 1px solid var(--ink);
+        }
+
+        /* Branching Links */
+        .link-card {
+            background: transparent;
+            border: 1px solid var(--ink);
+            padding: 1.5rem;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .link-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: var(--ink);
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            z-index: -1;
+        }
+
+        .link-card:hover {
+            color: var(--bone);
+            transform: translateX(8px);
+        }
+
+        .link-card:hover::before {
+            left: 0;
+        }
+
+        .link-card:hover .arrow-icon {
+            transform: translateX(4px);
+            filter: drop-shadow(0 0 8px var(--magenta-hot));
+        }
+
+        /* Magenta Accents */
+        .glow-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--magenta-hot);
+            border-radius: 50%;
+            box-shadow: 0 0 15px var(--magenta-hot);
+            display: inline-block;
+            margin-right: 10px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.4; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+            100% { opacity: 0.4; transform: scale(1); }
+        }
+
+        /* Responsive Branching Line */
+        .branch-line {
+            width: 1px;
+            height: 60px;
+            background: var(--ink);
+            margin: 0 auto;
+        }
+
+        .logo-slot {
+            font-weight: 800;
+            letter-spacing: -0.05em;
+            text-transform: uppercase;
+            font-size: 1.2rem;
+            border: 1px solid var(--ink);
+            padding: 4px 12px;
+            display: inline-block;
+        }
+
+        /* Section Hover Logic */
+        .section-label {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: #666;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+    </style>
+</head>
+<body class="flex flex-col items-center min-h-screen pt-12 pb-24 px-6">
+    <div class="grain"></div>
+
+    <!-- Header Section -->
+    <header class="w-full max-w-md text-center mb-8">
+        <div class="logo-slot mb-8">YOUR LOGO</div>
+        
+        <div class="flex flex-col items-center">
+            <div class="nexus-core mb-6">
+                <!-- Fallback to placeholder, user to replace src -->
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=256&h=256&auto=format&fit=crop" 
+                     alt="Profile" 
+                     class="nexus-image"
+                     onerror="this.src='https://via.placeholder.com/150/1A1A1A/FFFFFF?text=PROFILE'">
+            </div>
+            <h1 class="space-grotesk text-3xl font-bold uppercase tracking-tighter">Forensic Builder</h1>
+            <p class="text-sm mt-2 opacity-70 max-w-[280px]">Synthesizing digital experiences through data-driven rigor and aesthetic violence.</p>
+        </div>
+    </header>
+
+    <div class="branch-line"></div>
+
+    <!-- Main Navigation Branch -->
+    <main class="w-full max-w-md space-y-4 relative">
+        
+        <!-- PERSONAL GALLERY -->
+        <div>
+            <span class="section-label">01 / Showcase</span>
+            <a href="#" class="link-card flex justify-between items-center group">
+                <div class="flex items-center">
+                    <span class="glow-dot"></span>
+                    <span class="space-grotesk font-medium">Personal Gallery</span>
+                </div>
+                <svg class="arrow-icon w-5 h-5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+            </a>
+        </div>
+
+        <!-- WORKS IN PROGRESS -->
+        <div>
+            <span class="section-label">02 / Lab</span>
+            <a href="#" class="link-card flex justify-between items-center group">
+                <span class="space-grotesk font-medium ml-4">Works In Progress</span>
+                <span class="text-[10px] border border-current px-2 py-0.5 opacity-50 uppercase">Active</span>
+            </a>
+        </div>
+
+        <!-- BLOG -->
+        <div>
+            <span class="section-label">03 / Thinking</span>
+            <a href="#" class="link-card flex justify-between items-center group">
+                <span class="space-grotesk font-medium ml-4">Blog & Strategy</span>
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+            </a>
+        </div>
+
+        <!-- BIO -->
+        <div>
+            <span class="section-label">04 / Origin</span>
+            <div class="link-card p-6 bg-white/30 backdrop-blur-sm">
+                <p class="text-xs leading-relaxed opacity-80 mb-4">
+                    Product architect with 20 years of experience at the intersection of retail psychology and hyper-modern UI. Specialized in deploying experiences that don't just exist—they convert.
+                </p>
+                <div class="flex gap-4">
+                    <a href="#" class="text-[10px] uppercase font-bold border-b border-ink hover:text-magenta-hot hover:border-magenta-hot transition-colors">LinkedIn</a>
+                    <a href="#" class="text-[10px] uppercase font-bold border-b border-ink hover:text-magenta-hot hover:border-magenta-hot transition-colors">Twitter</a>
+                    <a href="#" class="text-[10px] uppercase font-bold border-b border-ink hover:text-magenta-hot hover:border-magenta-hot transition-colors">GitHub</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- WORK WITH ME -->
+        <div class="pt-6">
+            <a href="mailto:hello@example.com" class="block w-full text-center py-5 bg-ink text-bone space-grotesk font-bold uppercase tracking-widest hover:bg-[#111] transition-all relative group">
+                Work with Me
+                <div class="absolute inset-0 border border-magenta-hot opacity-0 group-hover:opacity-100 transition-opacity blur-sm"></div>
+            </a>
+        </div>
+
+    </main>
+
+    <footer class="mt-24 text-[10px] uppercase tracking-[0.3em] opacity-40">
+        &copy; 2025 Forensic Builder // All Rights Reserved.
+    </footer>
+
+    <script>
+        // Custom interactive cursor logic for high-end feel
+        document.addEventListener('mousemove', (e) => {
+            const nexus = document.querySelector('.nexus-core');
+            const rect = nexus.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            
+            const deltaX = (e.clientX - centerX) / 20;
+            const deltaY = (e.clientY - centerY) / 20;
+
+            nexus.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
+        });
+
+        // Entrance animation
+        window.addEventListener('load', () => {
+            const cards = document.querySelectorAll('.link-card, .logo-slot, header');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    card.style.transition = 'all 0.8s cubic-bezier(0.23, 1, 0.32, 1)';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 100 * index);
+            });
+        });
+    </script>
+</body>
+</html>
