@@ -2,19 +2,28 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nexus // Portfolio Hub</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Phoenix // Forensic Digital Architecture</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bone: #F5F5F0;
-            --ink: #0A0A0A;
-            --charcoal: #1A1A1A;
-            --magenta-glow: rgba(255, 0, 128, 0.4);
-            --magenta-hot: #FF0080;
+            --bone: #F8F8F5;
+            --ink: #080808;
+            --charcoal: #121212;
+            --cyan-glow: rgba(0, 229, 255, 0.25);
+            --cyan-hot: #00E5FF;
+            --border-alpha: rgba(8, 8, 8, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+            cursor: none !important;
         }
 
         body {
@@ -23,54 +32,111 @@
             font-family: 'Inter', sans-serif;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
         }
 
         .space-grotesk { font-family: 'Space Grotesk', sans-serif; }
 
-        /* Custom Grain Overlay */
+        /* Grain Overlay: Fixed Performance */
         .grain {
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
             pointer-events: none;
-            z-index: 999;
+            z-index: 9999;
             opacity: 0.04;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3BaseFilter id='filter'%3BfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23filter)'/%3E%3C/svg%3E");
         }
 
-        /* Profile Nexus */
-        .nexus-core {
+        /* Tactical Cursor Engine */
+        .cursor-point {
+            position: fixed;
+            top: 0; left: 0;
+            width: 6px;
+            height: 6px;
+            background: var(--cyan-hot);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10001;
+            box-shadow: 0 0 10px var(--cyan-hot);
+            will-change: transform;
+        }
+
+        .cursor-ring {
+            position: fixed;
+            top: 0; left: 0;
+            width: 34px;
+            height: 34px;
+            border: 1px solid var(--cyan-hot);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            will-change: transform, width, height, background;
+            transition: width 0.3s ease, height 0.3s ease, background 0.3s ease, border 0.3s ease;
+        }
+
+        /* Profile Phoenix: Isometric Depth */
+        .Phoenix-container {
+            perspective: 1200px;
+            margin-bottom: 3rem;
+        }
+
+        .Phoenix-core {
             position: relative;
-            width: 140px;
-            height: 140px;
+            width: clamp(130px, 25vw, 170px);
+            height: clamp(130px, 25vw, 170px);
             border-radius: 50%;
             border: 1px solid var(--ink);
-            padding: 4px;
-            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            padding: 8px;
+            background: var(--bone);
+            transform-style: preserve-3d;
+            transition: border-color 0.4s ease, box-shadow 0.4s ease;
         }
 
-        .nexus-core:hover {
-            border-color: var(--magenta-hot);
-            box-shadow: 0 0 30px var(--magenta-glow);
-            transform: scale(1.05);
+        .Phoenix-core:hover {
+            border-color: var(--cyan-hot);
+            box-shadow: 0 0 40px var(--cyan-glow);
         }
 
-        .nexus-image {
+        .Phoenix-image {
             width: 100%;
             height: 100%;
             border-radius: 50%;
             background: var(--charcoal);
             object-fit: cover;
-            border: 1px solid var(--ink);
+            filter: grayscale(1);
+            transition: filter 0.6s ease;
+            border: 1px solid var(--border-alpha);
         }
 
-        /* Branching Links */
+        .Phoenix-core:hover .Phoenix-image {
+            filter: grayscale(0);
+        }
+
+        /* Symmetrical Link Architecture */
+        .interface-grid {
+            width: 100%;
+            max-width: 440px;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            padding: 0 1.5rem;
+        }
+
         .link-card {
-            background: transparent;
-            border: 1px solid var(--ink);
-            padding: 1.5rem;
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
             position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.25rem 1.75rem;
+            border: 1px solid var(--ink);
+            background: transparent;
+            text-decoration: none;
+            color: var(--ink);
+            transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1), border-color 0.4s ease;
             overflow: hidden;
         }
 
@@ -80,180 +146,277 @@
             top: 0; left: -100%;
             width: 100%; height: 100%;
             background: var(--ink);
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-            z-index: -1;
-        }
-
-        .link-card:hover {
-            color: var(--bone);
-            transform: translateX(8px);
+            transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+            z-index: 0;
+            will-change: transform;
         }
 
         .link-card:hover::before {
-            left: 0;
+            transform: translateX(100%);
         }
 
-        .link-card:hover .arrow-icon {
-            transform: translateX(4px);
-            filter: drop-shadow(0 0 8px var(--magenta-hot));
+        .link-card span, .link-card svg {
+            position: relative;
+            z-index: 1;
+            transition: color 0.4s ease;
         }
 
-        /* Magenta Accents */
-        .glow-dot {
-            width: 8px;
-            height: 8px;
-            background: var(--magenta-hot);
-            border-radius: 50%;
-            box-shadow: 0 0 15px var(--magenta-hot);
-            display: inline-block;
-            margin-right: 10px;
-            animation: pulse 2s infinite;
+        .link-card:hover {
+            border-color: var(--cyan-hot);
+            transform: translateY(-2px);
         }
 
-        @keyframes pulse {
-            0% { opacity: 0.4; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.2); }
-            100% { opacity: 0.4; transform: scale(1); }
+        .link-card:hover span, .link-card:hover svg {
+            color: var(--bone);
         }
 
-        /* Responsive Branching Line */
-        .branch-line {
-            width: 1px;
-            height: 60px;
-            background: var(--ink);
-            margin: 0 auto;
-        }
-
-        .logo-slot {
-            font-weight: 800;
-            letter-spacing: -0.05em;
-            text-transform: uppercase;
-            font-size: 1.2rem;
-            border: 1px solid var(--ink);
-            padding: 4px 12px;
-            display: inline-block;
-        }
-
-        /* Section Hover Logic */
-        .section-label {
+        /* Label System */
+        .label-meta {
             font-size: 0.65rem;
             text-transform: uppercase;
-            letter-spacing: 0.2em;
-            color: #666;
+            letter-spacing: 0.35em;
+            color: rgba(8, 8, 8, 0.4);
             margin-bottom: 0.5rem;
-            display: block;
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            font-weight: 600;
+        }
+
+        .logo-box {
+            font-weight: 800;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            border: 1px solid var(--ink);
+            padding: 0.5rem 1.25rem;
+            margin-bottom: 3rem;
+            background: var(--bone);
+            display: inline-block;
+        }
+
+        /* Pulsing Status Indicator */
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--cyan-hot);
+            border-radius: 50%;
+            margin-right: 12px;
+            box-shadow: 0 0 12px var(--cyan-hot);
+            animation: pulse-status 2.5s infinite;
+        }
+
+        @keyframes pulse-status {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.4); }
+        }
+
+        /* CTA: High Intensity */
+        .cta-button {
+            width: 100%;
+            padding: 1.5rem;
+            background: var(--ink);
+            color: var(--bone);
+            text-align: center;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5em;
+            font-size: 0.7rem;
+            transition: all 0.5s ease;
+            position: relative;
+            margin-top: 2rem;
+            border: 1px solid var(--ink);
+        }
+
+        .cta-button:hover {
+            background: transparent;
+            color: var(--ink);
+            border-color: var(--cyan-hot);
+            box-shadow: 0 10px 30px var(--cyan-glow);
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 640px) {
+            .cursor-point, .cursor-ring { display: none !important; }
+            * { cursor: auto !important; }
+            .Phoenix-container { transform: none !important; }
+            .link-card { padding: 1.15rem 1.5rem; }
         }
     </style>
 </head>
-<body class="flex flex-col items-center min-h-screen pt-12 pb-24 px-6">
+<body class="pt-12 pb-20">
     <div class="grain"></div>
+    <div class="cursor-point" id="dot"></div>
+    <div class="cursor-ring" id="ring"></div>
 
-    <!-- Header Section -->
-    <header class="w-full max-w-md text-center mb-8">
-        <div class="logo-slot mb-8">YOUR LOGO</div>
+    <!-- Forensic Header -->
+    <header class="flex flex-col items-center text-center px-6 mb-12">
+        <div class="logo-box space-grotesk">BNDR // Phoenix</div>
         
-        <div class="flex flex-col items-center">
-            <div class="nexus-core mb-6">
-                <!-- Fallback to placeholder, user to replace src -->
-                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=256&h=256&auto=format&fit=crop" 
-                     alt="Profile" 
-                     class="nexus-image"
-                     onerror="this.src='https://via.placeholder.com/150/1A1A1A/FFFFFF?text=PROFILE'">
+        <div class="Phoenix-container">
+            <div class="Phoenix-core" id="Phoenix">
+                <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=400&h=400&auto=format&fit=crop" 
+                     alt="Architect" 
+                     class="Phoenix-image">
             </div>
-            <h1 class="space-grotesk text-3xl font-bold uppercase tracking-tighter">Forensic Builder</h1>
-            <p class="text-sm mt-2 opacity-70 max-w-[280px]">Synthesizing digital experiences through data-driven rigor and aesthetic violence.</p>
         </div>
+
+        <h1 class="space-grotesk text-3xl font-bold uppercase tracking-tighter mb-4">
+            Forensic Product Builder
+        </h1>
+        <p class="text-[12px] uppercase tracking-widest opacity-50 max-w-[340px] leading-relaxed">
+            Deployment of high-precision digital assets and architectural UX systems.
+        </p>
     </header>
 
-    <div class="branch-line"></div>
-
-    <!-- Main Navigation Branch -->
-    <main class="w-full max-w-md space-y-4 relative">
+    <!-- Navigation Hub -->
+    <main class="interface-grid">
         
-        <!-- PERSONAL GALLERY -->
-        <div>
-            <span class="section-label">01 / Showcase</span>
-            <a href="#" class="link-card flex justify-between items-center group">
+        <!-- BLOCK 01 -->
+        <div class="w-full">
+            <div class="label-meta">
+                <span>Ref. 01</span>
+                <span>Showcase</span>
+            </div>
+            <a href="#" class="link-card group">
                 <div class="flex items-center">
-                    <span class="glow-dot"></span>
-                    <span class="space-grotesk font-medium">Personal Gallery</span>
+                    <div class="status-dot"></div>
+                    <span class="space-grotesk font-bold uppercase text-sm tracking-widest">Personal Gallery</span>
                 </div>
-                <svg class="arrow-icon w-5 h-5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
             </a>
         </div>
 
-        <!-- WORKS IN PROGRESS -->
-        <div>
-            <span class="section-label">02 / Lab</span>
-            <a href="#" class="link-card flex justify-between items-center group">
-                <span class="space-grotesk font-medium ml-4">Works In Progress</span>
-                <span class="text-[10px] border border-current px-2 py-0.5 opacity-50 uppercase">Active</span>
+        <!-- BLOCK 02 -->
+        <div class="w-full">
+            <div class="label-meta">
+                <span>Ref. 02</span>
+                <span>Laboratory</span>
+            </div>
+            <a href="#" class="link-card">
+                <span class="space-grotesk font-bold uppercase text-sm tracking-widest ml-4">Works In Progress</span>
+                <span class="text-[9px] font-black px-2 py-0.5 border border-current opacity-40">STABLE</span>
             </a>
         </div>
 
-        <!-- BLOG -->
-        <div>
-            <span class="section-label">03 / Thinking</span>
-            <a href="#" class="link-card flex justify-between items-center group">
-                <span class="space-grotesk font-medium ml-4">Blog & Strategy</span>
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+        <!-- BLOCK 03 -->
+        <div class="w-full">
+            <div class="label-meta">
+                <span>Ref. 03</span>
+                <span>Editorial</span>
+            </div>
+            <a href="#" class="link-card">
+                <span class="space-grotesk font-bold uppercase text-sm tracking-widest ml-4">Blog & Strategy</span>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
             </a>
         </div>
 
-        <!-- BIO -->
-        <div>
-            <span class="section-label">04 / Origin</span>
-            <div class="link-card p-6 bg-white/30 backdrop-blur-sm">
-                <p class="text-xs leading-relaxed opacity-80 mb-4">
-                    Product architect with 20 years of experience at the intersection of retail psychology and hyper-modern UI. Specialized in deploying experiences that don't just exist—they convert.
+        <!-- BIO MODULE -->
+        <div class="w-full mt-4">
+            <div class="p-6 border border-dashed border-ink/20 bg-white/40">
+                <div class="label-meta mb-3"><span>Identity</span></div>
+                <p class="text-[11px] leading-relaxed font-medium opacity-80 mb-6">
+                    A world-renowned architect of high-conversion interfaces. My process is forensic: analyzing the friction in human behavior to build frictionless software. Alumnus of elite global design teams.
                 </p>
-                <div class="flex gap-4">
-                    <a href="#" class="text-[10px] uppercase font-bold border-b border-ink hover:text-magenta-hot hover:border-magenta-hot transition-colors">LinkedIn</a>
-                    <a href="#" class="text-[10px] uppercase font-bold border-b border-ink hover:text-magenta-hot hover:border-magenta-hot transition-colors">Twitter</a>
-                    <a href="#" class="text-[10px] uppercase font-bold border-b border-ink hover:text-magenta-hot hover:border-magenta-hot transition-colors">GitHub</a>
+                <div class="flex gap-8">
+                    <a href="#" class="nav-link text-[10px] font-black uppercase border-b border-transparent hover:border-cyan-hot transition-all">Insta</a>
+                    <a href="#" class="nav-link text-[10px] font-black uppercase border-b border-transparent hover:border-cyan-hot transition-all">Github</a>
+                    <a href="#" class="nav-link text-[10px] font-black uppercase border-b border-transparent hover:border-cyan-hot transition-all">X / Tw</a>
                 </div>
             </div>
         </div>
 
-        <!-- WORK WITH ME -->
-        <div class="pt-6">
-            <a href="mailto:hello@example.com" class="block w-full text-center py-5 bg-ink text-bone space-grotesk font-bold uppercase tracking-widest hover:bg-[#111] transition-all relative group">
-                Work with Me
-                <div class="absolute inset-0 border border-magenta-hot opacity-0 group-hover:opacity-100 transition-opacity blur-sm"></div>
-            </a>
-        </div>
+        <!-- FINAL CTA -->
+        <a href="mailto:forensic@bndr.com" class="cta-button space-grotesk">
+            Commence Project
+        </a>
 
     </main>
 
-    <footer class="mt-24 text-[10px] uppercase tracking-[0.3em] opacity-40">
-        &copy; 2025 Forensic Builder // All Rights Reserved.
+    <footer class="mt-24 text-center">
+        <p class="text-[9px] uppercase tracking-[0.6em] opacity-30 font-bold">
+            Auth // [2025.v4] // Phoenix Architecture
+        </p>
     </footer>
 
     <script>
-        // Custom interactive cursor logic for high-end feel
-        document.addEventListener('mousemove', (e) => {
-            const nexus = document.querySelector('.nexus-core');
-            const rect = nexus.getBoundingClientRect();
-            const centerX = rect.left + rect.width / 2;
-            const centerY = rect.top + rect.height / 2;
-            
-            const deltaX = (e.clientX - centerX) / 20;
-            const deltaY = (e.clientY - centerY) / 20;
+        /**
+         * TACTICAL CURSOR ENGINE (Socratic Fix)
+         * De-coupling mouse-tracking from the paint loop to eliminate stutter.
+         */
+        const dot = document.getElementById('dot');
+        const ring = document.getElementById('ring');
+        const Phoenix = document.getElementById('Phoenix');
 
-            nexus.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
+        // State variables for Lerping (Linear Interpolation)
+        let mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+        let dotPos = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+        let ringPos = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+
+        const lerp = (start, end, factor) => start + (end - start) * factor;
+
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
         });
 
-        // Entrance animation
+        function update() {
+            // Dot: Faster follow
+            dotPos.x = lerp(dotPos.x, mouse.x, 0.25);
+            dotPos.y = lerp(dotPos.y, mouse.y, 0.25);
+            
+            // Ring: Slower follow for "weighted" forensic feel
+            ringPos.x = lerp(ringPos.x, mouse.x, 0.12);
+            ringPos.y = lerp(ringPos.y, mouse.y, 0.12);
+
+            dot.style.transform = `translate3d(${dotPos.x - 3}px, ${dotPos.y - 3}px, 0)`;
+            ring.style.transform = `translate3d(${ringPos.x - 17}px, ${ringPos.y - 17}px, 0)`;
+
+            // Phoenix tilt logic based on mouse relative to center
+            const centerX = window.innerWidth / 2;
+            const centerY = window.innerHeight / 2;
+            const tiltX = (mouse.y - centerY) / 40;
+            const tiltY = (mouse.x - centerX) / 40;
+            
+            Phoenix.style.transform = `rotateX(${-tiltX}deg) rotateY(${tiltY}deg)`;
+
+            requestAnimationFrame(update);
+        }
+
+        // Handle Hover States for Ring
+        const interactables = document.querySelectorAll('a, .Phoenix-core');
+        interactables.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                ring.style.width = '60px';
+                ring.style.height = '60px';
+                ring.style.background = 'var(--cyan-glow)';
+                ring.style.borderColor = 'transparent';
+                // Adjusting offsets for new size
+                ringPos.x -= 13;
+                ringPos.y -= 13;
+            });
+            el.addEventListener('mouseleave', () => {
+                ring.style.width = '34px';
+                ring.style.height = '34px';
+                ring.style.background = 'transparent';
+                ring.style.borderColor = 'var(--cyan-hot)';
+            });
+        });
+
+        // Initialize Loop
+        requestAnimationFrame(update);
+
+        // Entrance Orchestration
         window.addEventListener('load', () => {
-            const cards = document.querySelectorAll('.link-card, .logo-slot, header');
-            cards.forEach((card, index) => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(20px)';
+            const items = document.querySelectorAll('.logo-box, .Phoenix-container, h1, p, .label-meta, .link-card, .cta-button, footer');
+            items.forEach((item, i) => {
+                item.style.opacity = '0';
+                item.style.transform = 'translateY(15px)';
                 setTimeout(() => {
-                    card.style.transition = 'all 0.8s cubic-bezier(0.23, 1, 0.32, 1)';
-                    card.style.opacity = '1';
-                    card.style.transform = 'translateY(0)';
-                }, 100 * index);
+                    item.style.transition = 'all 0.8s cubic-bezier(0.19, 1, 0.22, 1)';
+                    item.style.opacity = '1';
+                    item.style.transform = 'translateY(0)';
+                }, 80 * i);
             });
         });
     </script>
